@@ -286,21 +286,7 @@ a.theme-btn,
 .page-gallery-img a::before,
 .field,
 .button,
-.contact-form button,
-.contact-form input,
-.contact-form textarea,
-.popup-centralize,
-.payment-box,
-.donation-figures li a,
-.proceed,
-.payment-type .nav li a,
-.textfield input, .textfield textarea,
-.newsletter-signup form input,
-.slide-button,
-.blackbox,
-header.dark-header .menu .container,
-.popup-form,
-.popup-form > form input,
+
 .gallery-widget .row > div a,
 /*============= Version 1.1 ===============*/
 .column.overlap:before,
@@ -400,7 +386,7 @@ a.theme-btn:before,
 .comment > a,
 .button, 
 .cause-detail > strong a,
-.contact-form button,
+
 .member-social,
 .member-img:before,.member-img:after,
 .social-links > a,
@@ -4977,85 +4963,7 @@ footer .widget-post h5{color:#FFF;}
 .cart-item i{font-family:arimo;font-size:14px;font-style:normal;}
 .cart-item span.remove{float:left;width:100%;}
 .cart-item i.ti-close{font-family:themify;cursor:pointer;}
-.input-group{
-background:#ffffff; /* Old browsers */
-/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-background:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjIzJSIgc3RvcC1jb2xvcj0iI2ZiZmJmYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjU4JSIgc3RvcC1jb2xvcj0iI2ZhZmFmYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOGY4ZjgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-background:-moz-linear-gradient(top, #ffffff 0%, #fbfbfb 23%, #fafafa 58%, #f8f8f8 100%); /* FF3.6+ */
-background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(23%,#fbfbfb), color-stop(58%,#fafafa), color-stop(100%,#f8f8f8)); /* Chrome,Safari4+ */
-background:-webkit-linear-gradient(top, #ffffff 0%,#fbfbfb 23%,#fafafa 58%,#f8f8f8 100%); /* Chrome10+,Safari5.1+ */
-background:-o-linear-gradient(top, #ffffff 0%,#fbfbfb 23%,#fafafa 58%,#f8f8f8 100%); /* Opera 11.10+ */
-background:-ms-linear-gradient(top, #ffffff 0%,#fbfbfb 23%,#fafafa 58%,#f8f8f8 100%); /* IE10+ */
-background:linear-gradient(to bottom, #ffffff 0%,#fbfbfb 23%,#fafafa 58%,#f8f8f8 100%); /* W3C */
-filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f8',GradientType=0 ); /* IE6-8 */
 
-    border:1px solid #d2d0d0;
-    float:left;
-    overflow:hidden;
-    padding-right:30px;
-    position:relative;
-    width:65%;
-}
-.input-group:before{
-    background:none repeat scroll 0 0 #d2d0d0;
-    content:"";
-    height:10px;
-    margin-top:-5px;
-    position:absolute;
-    right:30px;
-    top:50%;
-    width:1px;
-}
-.input-group span.input-group-btn{
-    border:0 none;
-    height:50%;
-    width:30px;
-    padding:0;
-    z-index:5;
-    position:absolute;
-    right:1px;
-    top:1px;
-}
-.input-group input.form-control{
-    background:none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border:0 none;
-    box-shadow:none;
-    color:#6f6f6f;
-    font-family:arimo;
-    font-size:11px;
-}
-.input-group span.input-group-btn:last-child{bottom:1px;top:auto;}
-.input-group span.input-group-btn button.btn{
-    background:none;
-    border:0 none;
-    box-shadow:none;
-    border-radius:0;
-    color:rgba(0, 0, 0, 0);
-    float:left;
-    height:100%;
-    margin:0;
-    padding:0;
-    width:100%;
-    z-index:2;
-}
-.input-group span.input-group-btn:before{
-    border-bottom:4px solid #6f6f6f;
-    border-left:4px solid rgba(0, 0, 0, 0);
-    border-right:4px solid rgba(0, 0, 0, 0);
-    bottom:3px;
-    content:"";
-    height:0;
-    left:50%;
-    margin-left:-2px;
-    position:absolute;
-    width:0;
-    z-index:0;
-}
-.input-group span.input-group-btn:last-child:before{
-    border-bottom:0 none;
-    border-top:4px solid #6f6f6f;
-    top:3px;
-}
 .cart-bottom{
     background:#FFF;
     border-top:1px solid #dddcdc;
