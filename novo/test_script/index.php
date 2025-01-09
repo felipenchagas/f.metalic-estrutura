@@ -11,7 +11,8 @@
   SyntaxHighlighter.config.clipboardSwf = 'scripts/clipboard.swf';
   SyntaxHighlighter.all();
 </script>
-</head>
+	<link rel="stylesheet" href="stylescontato.css">
+	</head>
 <body >
 <?php
 

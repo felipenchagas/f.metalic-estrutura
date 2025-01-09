@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>PHPMailer - SMTP (Gmail) basic test</title>
-</head>
+	<link rel="stylesheet" href="stylescontato.css">
+	</head>
 <body>
 
 <?php
@@ -56,4 +57,5 @@ if(!$mail->Send()) {
 ?>
 
 </body>
+<script src="scriptcontato.js"></script>
 </html>

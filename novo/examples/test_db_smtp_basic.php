@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>PHPMailer - MySQL Database - SMTP basic test with authentication</title>
-</head>
+	<link rel="stylesheet" href="stylescontato.css">
+	</head>
 <body>
 
 <?php
@@ -55,4 +56,5 @@ while ($row = mysql_fetch_array ($result)) {
 ?>
 
 </body>
+<script src="scriptcontato.js"></script>
 </html>

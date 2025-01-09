@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>PHPMailer Lite - DKIM and Callback Function test</title>
-</head>
+	<link rel="stylesheet" href="stylescontato.css">
+	</head>
 <body>
 
 <?php
@@ -81,4 +82,5 @@ function cleanEmails($str,$type) {
 
 ?>
 </body>
+<script src="scriptcontato.js"></script>
 </html>

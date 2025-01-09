@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>PHPMailer - Mail() basic test</title>
-</head>
+	<link rel="stylesheet" href="stylescontato.css">
+	</head>
 <body>
 
 <?php
@@ -40,4 +41,5 @@ if(!$mail->Send()) {
 ?>
 
 </body>
+<script src="scriptcontato.js"></script>
 </html>

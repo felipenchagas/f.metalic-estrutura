@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>PHPMailer - SMTP basic test with no authentication</title>
-</head>
+	<link rel="stylesheet" href="stylescontato.css">
+	</head>
 <body>
 
 <?php
@@ -50,4 +51,5 @@ if(!$mail->Send()) {
 ?>
 
 </body>
+<script src="scriptcontato.js"></script>
 </html>

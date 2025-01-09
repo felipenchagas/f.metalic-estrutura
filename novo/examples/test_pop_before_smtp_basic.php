@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>POP before SMTP Test</title>
-</head>
+	<link rel="stylesheet" href="stylescontato.css">
+	</head>
 <body>
 
 <?php
@@ -46,4 +47,5 @@ if(!$mail->Send()) {
 ?>
 
 </body>
+<script src="scriptcontato.js"></script>
 </html>

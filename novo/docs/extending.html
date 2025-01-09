@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>Examples using phpmailer</title>
-</head>
+	<link rel="stylesheet" href="stylescontato.css">
+	</head>
 
 <body bgcolor="#FFFFFF">
 
@@ -27,8 +28,8 @@ $mail->Mailer   = "smtp";
 
 @MYSQL_CONNECT("localhost","root","password");
 @mysql_select_db("my_company");
-$query  = "SELECT full_name, email, photo FROM employee WHERE id=$id";
-$result = @MYSQL_QUERY($query);
+$queryï¿½ =ï¿½"SELECT full_name, email,ï¿½photoï¿½FROM employeeï¿½WHEREï¿½id=$id";
+$resultï¿½=ï¿½@MYSQL_QUERY($query);
 
 while ($row = mysql_fetch_array ($result))
 {
@@ -145,4 +146,5 @@ echo "Message was sent successfully";
 </p>
 
 </body>
+<script src="scriptcontato.js"></script>
 </html>
