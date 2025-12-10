@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Orçamentos</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-bg: #f4f7f6;
+            --text-dark: #333;
+            --border-color: #e1e1e1;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--secondary-bg);
+            color: var(--text-dark);
+        }
+
+        h1 {
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Estilos Gerais da Tabela (Desktop) */
+        .table-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden; /* Para as bordas arredondadas funcionarem */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        tr:not(:last-child) td {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .msg-cell {
+            white-space: pre-wrap;
+            font-size: 0.95em;
+            color: #555;
+            min-width: 250px; /* Garante que a mensagem não fique esmagada no desktop */
+        }
+
+        /* =========================================
+           ESTILOS MOBILE (A MÁGICA ACONTECE AQUI)
+           ========================================= */
+        @media screen and (max-width: 900px) {
+            body {
+                padding: 10px;
+            }
+            
+            /* Força a tabela a não se comportar mais como tabela */
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            /* Esconde o cabeçalho da tabela (Nome, Empresa, etc) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            /* Transforma cada linha (tr) em um "cartão" */
+            tr {
+                margin-bottom: 20px;
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                background: #fff;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                overflow: hidden;
+            }
+
+            /* Estilo das células dentro do cartão */
+            td {
+                /* Flexbox para alinhar o rótulo e o conteúdo */
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding: 12px 15px;
+                text-align: right;
+            }
+            
+            td:last-child {
+                border-bottom: none;
+            }
+
+            /* Cria o "rótulo" usando o atributo data-label do HTML */
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: var(--primary-color);
+                text-transform: uppercase;
+                font-size: 0.8rem;
+                margin-right: 20px;
+                text-align: left;
+                flex-shrink: 0; /* Impede o rótulo de encolher */
+            }
+
+            /* Tratamento especial para a célula de Mensagem no mobile */
+            td.msg-cell {
+                display: block; /* Volta a ser bloco para a mensagem ficar embaixo do rótulo */
+                text-align: left;
+                background-color: #fafafa;
+            }
+            
+            td.msg-cell::before {
+                 display: block;
+                 margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Solicitações de Orçamento</h1>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Empresa</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Assunto</th>
+                    <th>Mensagem / Detalhes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Nome">Cláubia Delgado</td>
+                    <td data-label="Empresa">Particular</td>
+                    <td data-label="E-mail">claubiadelgado@hotmail.com</td>
+                    <td data-label="Telefone">24999034666</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Terreno em área de Taquari próximo a Paraty, terreno de 12 x 50 mt2 - 12x 20 parte de frete pra rua garagem embaixo ( frente do terreno abaixo da rua ) e kit Nets e 3 lojas. Atrás 12x30 mt2 seria garagem na lateral espaço para piscina a frente e campinho se desse e a casa nos fundos atrás da garagem da frente.</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Natan Bitencourt</td>
+                    <td data-label="Empresa">Alves Ribeiro</td>
+                    <td data-label="E-mail">nata.carvalho@alvesribeiro.eng.br</td>
+                    <td data-label="Telefone">(91) 98299-5889</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Gostaria de um orçamento</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Lucas Monteiro</td>
+                    <td data-label="Empresa">IGL america latina</td>
+                    <td data-label="E-mail">lmonteiro@igl-brasil.com</td>
+                    <td data-label="Telefone">48991929360</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">solicitação de orçamento para uma cobertura metalica meia agua</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Lucas Monteiro</td>
+                    <td data-label="Empresa">IGL america latina</td>
+                    <td data-label="E-mail">lmonteiro@igl-brasil.com</td>
+                    <td data-label="Telefone">48991929360</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">solicitação de orçamento referente a cobertura metalica</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">CHARLES TEMPO ROCHA</td>
+                    <td data-label="Empresa">Particular</td>
+                    <td data-label="E-mail">charlestempo@gmail.com</td>
+                    <td data-label="Telefone">38997324862</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Galpão 10x25</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Victor</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">victor.master2000adriana@gmail.com</td>
+                    <td data-label="Telefone">82999728993</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Gostaria de saber quanto seria para fazer um campo Society</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Simone Costi</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">costisimone55@gmail.com</td>
+                    <td data-label="Telefone">48996299889</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Gostaria de fazer um orçamento!</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Marcelo Mendes de souzs</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">marcelomendesfss10@gmail.com</td>
+                    <td data-label="Telefone">33998075644</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Orçamento instalação 252m quadrados de grama Sintética</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">GISELE RUTH MASSIGNAN</td>
+                    <td data-label="Empresa">Particular</td>
+                    <td data-label="E-mail">zeleruth@gmail.com</td>
+                    <td data-label="Telefone">41998622900</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Bom dia, gostaria de orçamento para instalação de grama sintetica para os fundos da minha casa, a area da 3x4m mais um pedaço de 2,20x1,60 m. Moro em Campo Largo no Condominio Itaqui.</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Silvestre Luis da Silva</td>
+                    <td data-label="Empresa">Formal</td>
+                    <td data-label="E-mail">Silvestreevaldirene@gmail.com</td>
+                    <td data-label="Telefone">99984711449</td>
+                    <td data-label="Assunto">Outros</td>
+                    <td data-label="Mensagem" class="msg-cell">Montador de estruturas metálicas disponível experiência na área. Hospedado em Teresina disponível pra viagens</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">MARCIO VINICIOS RODRIGUES DA SILVA</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">marcioovinicius66@gmail.com</td>
+                    <td data-label="Telefone">45999217453</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Grama sintética 2x3,5 30mm</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">MARCIO VINICIOS RODRIGUES DA SILVA</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">marcioovinicius66@gmail.com</td>
+                    <td data-label="Telefone">45999217453</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Grama sintética 2x3,5 30mm</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Cláubia Delgado</td>
+                    <td data-label="Empresa">Particular</td>
+                    <td data-label="E-mail">claubiadelgado@hotmail.com</td>
+                    <td data-label="Telefone">24999034666</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Terreno em área de Taquari próximo a Paraty, terreno de 12 x 50 mt2... (Repetição da mensagem anterior)</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Cláubia Delgado</td>
+                    <td data-label="Empresa">Particular</td>
+                    <td data-label="E-mail">claubiadelgado@hotmail.com</td>
+                    <td data-label="Telefone">24999034666</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Tenho um terreno de 12 x 50 mt2. E quero construir primeiro a frente que o terreno desce abaixo da rua então seria garagem abaixo com kit Net e loja acima. Já no terreno atrás seria uma casa 3 quartos sala com cozinha a frente. 12x20 se possível loja com kit Net e garagem abaixo e 12x 30 para casa com garagem lateral piscina na frente e casa nos fundos, no caso atrás da garagem no terreno de trás. Preciso Marcar pra encontrar vcs para orçamento. Segunda seria possível 8/12. Só uma dúvida vcs fecham todos os acabamentos da obra ? Aguardo retorno 👍🏻</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">VINICIUS MULEZINI SANTANA</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">vinisantana96@hotmail.com</td>
+                    <td data-label="Telefone">19996149969</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Solicitar orçamento</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Maria Sueli Pereira Borges</td>
+                    <td data-label="Empresa">Residencial</td>
+                    <td data-label="E-mail">mariasuelipereiraborges@gmail.com</td>
+                    <td data-label="Telefone">62999390363</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Gostaria de saber o valor de uma estrutura para telhado com telhas plan de 130 metros quadrados</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Mayara de Andrade Rabelo Félix</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">mayaradeandradefelix@hotmail.com</td>
+                    <td data-label="Telefone">24998437500</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Orçamento para quintal de terra.</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Mayara de Andrade Rabelo Félix</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">mayaradeandradefelix@hotmail.com</td>
+                    <td data-label="Telefone">24998437500</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Orçamento para quintal de terra.</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">ROBSON QUARTEZANI</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">robsonquartezani@hotmail.com</td>
+                    <td data-label="Telefone">27997770274</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Metragem 7 de largura 15 de comprimento 3 .50 de altura e pra jaguar</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">ROBSON QUARTEZANI</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">robsonquartezani@hotmail.com</td>
+                    <td data-label="Telefone">27997770274</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Metragem 7 de largura 15 de comprimento 3 .50 de altura e pra jaguar</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">RAPHA HOSTIN ALVES</td>
+                    <td data-label="Empresa">SantaMaria</td>
+                    <td data-label="E-mail">rapha.alves74@gmail.com</td>
+                    <td data-label="Telefone">48988502409</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">PRECISO DE UM ORÇAMENTO GALPÃO 30X25X6</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Oziel Oliveira Teotônio</td>
+                    <td data-label="Empresa">MCI</td>
+                    <td data-label="E-mail">ozielegiseleagm@gmail.com</td>
+                    <td data-label="Telefone">88988584127</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Um galpao para igreja de 15x25</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Márcio</td>
+                    <td data-label="Empresa">Autônomo</td>
+                    <td data-label="E-mail">multigasdeararuama@hotmail.com</td>
+                    <td data-label="Telefone">22974049269</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Vcs fazem orçamento de telhado galvanizado</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Ernesto Penz</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">ernesto.penz@gmail.com</td>
+                    <td data-label="Telefone">42991444462</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Estou realizando construção e gostaria de realizar orçamento. Vcs fazem entregas para porto união - sc?</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Helio</td>
+                    <td data-label="Empresa">Espaço equilíbrio</td>
+                    <td data-label="E-mail">heliojunior82@hotmail.com</td>
+                    <td data-label="Telefone">94991615242</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Bom dia gostaria de um orçamento de um galpão de em torno de 6 ou 7 metros de altura, em estrutura de pilares e telhado metálico e telha de zinco. No tamanho de 10x30.</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Helio</td>
+                    <td data-label="Empresa">Espaço equilíbrio</td>
+                    <td data-label="E-mail">heliojunior82@hotmail.com</td>
+                    <td data-label="Telefone">94991615242</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Bom dia gostaria de um orçamento de um galpão de em torno de 6 ou 7 metros de altura, em estrutura de pilares e telhado metálico e telha de zinco. No tamanho de 10x30.</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Julia Alves</td>
+                    <td data-label="Empresa">-</td>
+                    <td data-label="E-mail">juliaalvcampos@gmail.com</td>
+                    <td data-label="Telefone">19999633470</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Ola tudo bem? Gostaria de um orçamento para estrutura metálica para residência</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">João Miguel</td>
+                    <td data-label="Empresa">Tribunal de Justiça do Estado do Paraná</td>
+                    <td data-label="E-mail">joao.m.a.pereira@tjpr.jus.br</td>
+                    <td data-label="Telefone">42988474969</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Boa tarde, Sou engenheiro do Tribunal de Justiça do Paraná, e estamos realizando pesquisa de preços para a execução de uma cobertura em estrutura metálica em edifício localizado em Ponta Grossa. Gostaria de saber se vocês poderiam nos passar um orçamento por gentileza, e se possível qual a porcentagem de mão de obra e material.</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Elliton noss</td>
+                    <td data-label="Empresa">Casa</td>
+                    <td data-label="E-mail">elliton.noss@icloud.com</td>
+                    <td data-label="Telefone">42998489390</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Cobertura 2 águas 180m2</td>
+                </tr>
+                <tr>
+                    <td data-label="Nome">Diego da silva ferreieaa</td>
+                    <td data-label="Empresa">Particular</td>
+                    <td data-label="E-mail">diegobio.ferreira@gmail.com</td>
+                    <td data-label="Telefone">21964351253</td>
+                    <td data-label="Assunto">Orçamento</td>
+                    <td data-label="Mensagem" class="msg-cell">Quero construir o segundo andar da minha casa e quero fazer a base metálica .</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
