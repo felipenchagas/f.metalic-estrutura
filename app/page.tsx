@@ -1,6 +1,4 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
 import HeroSlider from '@/components/HeroSlider'
 import ServicesSection from '@/components/ServicesSection'
 import ProjectsCarousel from '@/components/ProjectsCarousel'
@@ -8,6 +6,7 @@ import StatsBar from '@/components/StatsBar'
 import WhySteel from '@/components/WhySteel'
 import AboutSection from '@/components/AboutSection'
 import CTABand from '@/components/CTABand'
+import CitiesSection from '@/components/CitiesSection'
 
 export const metadata: Metadata = {
   title: 'Metalic Estrutura | Estrutura Metálica em Curitiba PR SP SC RJ MG',
@@ -23,6 +22,7 @@ export default function HomePage() {
       <AboutSection />
       <ServicesSection />
       <ProjectsCarousel />
+      <CitiesSection />
       <WhySteel />
       <CTABand />
     </>

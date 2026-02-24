@@ -107,6 +107,7 @@ export default function Footer() {
                                 ['Empresa', '/#sobre'],
                                 ['Galeria', '/galeria'],
                                 ['Contato', '/contato'],
+                                ['Cidades Atendidas', '/pr'],
                             ].map(([label, href]) => (
                                 <li key={href}>
                                     <Link
