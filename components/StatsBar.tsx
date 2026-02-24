@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { motion, useInView, useCounterAnimation } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 
 const stats = [
     { value: 2000, suffix: '+', label: 'Obras Realizadas' },
