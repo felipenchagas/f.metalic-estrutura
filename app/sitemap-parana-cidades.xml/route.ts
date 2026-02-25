@@ -24,7 +24,7 @@ export async function GET() {
     <loc>${baseUrl}/pr/${city.slug}</loc>
     <lastmod>${lastMod}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.6</priority>
   </url>\n`
         }
     }

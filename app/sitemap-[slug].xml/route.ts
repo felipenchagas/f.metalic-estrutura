@@ -22,12 +22,18 @@ export async function GET(request: Request, context: any) {
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
-    // Sempre Adiciona a página matriz/capitale da Cidade com Prioridade 100% sobre bairros
+    // Lógica inteligente de peso baseada no porte da cidade
+    const neighCount = cityData.neighborhoods.length
+    let cityPriority = '0.8' // Peso padrão pra cidade que tem pouquinhos bairros (1 a 3)
+    if (neighCount >= 10) cityPriority = '1.0' // Capitais e Metrópoles
+    else if (neighCount > 3) cityPriority = '0.9' // Cidades Médias
+
+    // Sempre Adiciona a página matriz/capitale da Cidade com a Prioridade Calculada
     xml += `  <url>
     <loc>${baseUrl}/pr/${slug}</loc>
     <lastmod>${cityData.lastUpdated || new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <priority>${cityPriority}</priority>
   </url>\n`
 
     // Adiciona o UrlSet de todos os bairros filhotes (ex: Centro, Água Verde) dessa capital
