@@ -48,26 +48,30 @@ export default async function SitemapsPage() {
         { name: 'sitemap.xml', type: 'Index Mestre', pages: 'Todos Agregadores', url: '/sitemap.xml' }
     ]
 
-    let paranaCidadesCount = 0
+    let demaisBairrosCount = 0
     let sitemapsCidades: Array<{ name: string, type: string, pages: number, url: string }> = []
 
     citiesPR.forEach((c) => {
         const cData = seoCities[c.slug]
         const nbLength = cData?.neighborhoods?.length || 0
-        if (nbLength > 10) {
+
+        if (nbLength > 4) {
+            // Metrópoles VIP (Sitemap Isolado)
             sitemapsCidades.push({
                 name: `sitemap-${c.slug}.xml`,
                 type: 'Capitais/Bairros',
-                pages: 1 + nbLength,
+                pages: nbLength, // Agora não inclui mais a página da cidade (apenas bairros)
                 url: `/sitemap-${c.slug}.xml`
             })
-        } else {
-            paranaCidadesCount++
+        } else if (nbLength > 0) {
+            // Conta os bairros aglomerados no arquivo demais-bairros
+            demaisBairrosCount += nbLength
         }
     })
 
     const sitemapsAgregadores = [
-        { name: 'sitemap-parana-cidades.xml', type: 'Silo Estadual', pages: `${paranaCidadesCount} Cidades LPs`, url: '/sitemap-parana-cidades.xml' },
+        { name: 'sitemap-parana.xml', type: 'Silo Estadual', pages: `${citiesPR.length} Cidades LPs`, url: '/sitemap-parana.xml' },
+        { name: 'sitemap-demais-bairros.xml', type: 'Silo Bairros', pages: `${demaisBairrosCount} Bairros Agrup.`, url: '/sitemap-demais-bairros.xml' },
         { name: 'sitemap-main.xml', type: 'Institucional', pages: mainCount, url: '/sitemap-main.xml' },
         { name: 'sitemap-services.xml', type: 'Soluções', pages: servicesCount, url: '/sitemap-services.xml' },
         { name: 'sitemap-seo-pages.xml', type: 'Fundo-de-Funil', pages: seoPagesCount, url: '/sitemap-seo-pages.xml' },

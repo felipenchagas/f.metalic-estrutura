@@ -25,9 +25,15 @@ export async function GET() {
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
 
-  // State Pages Sitemap (Aggregates ALL cities without neighborhoods into a single Level 2 Sitemap)
+  // State Pages Sitemap (Aggregates ALL cities. Period.)
   xml += `  <sitemap>
-    <loc>${baseUrl}/sitemap-parana-cidades.xml</loc>
+    <loc>${baseUrl}/sitemap-parana.xml</loc>
+    <lastmod>${currentDate}</lastmod>
+  </sitemap>\n`
+
+  // Demais Bairros Sitemap (Aggregates neighborhoods from small cities <= 4)
+  xml += `  <sitemap>
+    <loc>${baseUrl}/sitemap-demais-bairros.xml</loc>
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
 
@@ -40,7 +46,7 @@ export async function GET() {
   citiesPR.forEach((city) => {
     const citySeo = seoData[city.slug]
     const nbLength = citySeo?.neighborhoods?.length || 0
-    const isMetropole = nbLength > 10
+    const isMetropole = nbLength > 4
 
     if (isMetropole) {
       xml += `  <sitemap>

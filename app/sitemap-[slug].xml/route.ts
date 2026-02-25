@@ -11,8 +11,8 @@ export async function GET(request: Request, context: any) {
 
     const cityData = await getCitySeo(slug)
 
-    // Se baterem num XML solto que não existe mais (ex: se apagou bairro da base), geramos mapa de erro
-    if (!cityData || !cityData.neighborhoods || cityData.neighborhoods.length === 0) {
+    // Se baterem num XML solto que não existe mais ou que não é mais VIP (<= 4 bairros), retornamos vazio
+    if (!cityData || !cityData.neighborhoods || cityData.neighborhoods.length <= 4) {
         // Fallback gracefully instead of throwing 500 error allowing Google to process
         return new NextResponse('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>', {
             headers: { 'Content-Type': 'application/xml', 'Cache-Control': 'no-store' }
@@ -21,20 +21,6 @@ export async function GET(request: Request, context: any) {
 
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-
-    // Lógica inteligente de peso baseada no porte da cidade
-    const neighCount = cityData.neighborhoods.length
-    let cityPriority = '0.8' // Peso padrão pra cidade que tem pouquinhos bairros (1 a 3)
-    if (neighCount >= 10) cityPriority = '1.0' // Capitais e Metrópoles
-    else if (neighCount > 3) cityPriority = '0.9' // Cidades Médias
-
-    // Sempre Adiciona a página matriz/capitale da Cidade com a Prioridade Calculada
-    xml += `  <url>
-    <loc>${baseUrl}/pr/${slug}</loc>
-    <lastmod>${cityData.lastUpdated || new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>${cityPriority}</priority>
-  </url>\n`
 
     // Adiciona o UrlSet de todos os bairros filhotes (ex: Centro, Água Verde) dessa capital
     for (const nb of cityData.neighborhoods) {
