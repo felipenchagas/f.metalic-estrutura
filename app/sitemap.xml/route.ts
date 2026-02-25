@@ -4,6 +4,8 @@ export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://metalic-estrutura.com.br'
   const currentDate = new Date().toISOString()
 
+  const { citiesPR } = await import('@/lib/cities')
+
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
   xml += '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
@@ -25,11 +27,13 @@ export async function GET() {
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
 
-  // State Sitemap (Aggregates all cities)
-  xml += `  <sitemap>
-    <loc>${baseUrl}/sitemap-parana.xml</loc>
+  // Cities Sitemaps (Directly listed to avoid Nested Indexing errors in Google Console)
+  citiesPR.forEach((city) => {
+    xml += `  <sitemap>
+    <loc>${baseUrl}/sitemap-${city.slug}.xml</loc>
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
+  })
 
   xml += '</sitemapindex>'
 
