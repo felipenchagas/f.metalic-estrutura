@@ -3,11 +3,10 @@ import { getCitySeo } from '@/lib/seo-cities-store'
 import { getNeighborhoodSeo } from '@/lib/seo-neighborhoods-store'
 
 // O Next.js nos abençoa com rotas dinâmicas como /sitemap-[slug].xml onde slug captura a cidade
-// Acessaremos params.slug para alimentar a base de dados
-type Props = { params: Promise<{ slug: string }> }
-
-export async function GET(request: Request, { params }: Props) {
-    const { slug } = await params
+// Acessaremos context.params.slug para alimentar a base de dados
+export async function GET(request: Request, context: any) {
+    const params = await context.params
+    const slug = params.slug
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://metalic-estrutura.com.br'
 
     const cityData = await getCitySeo(slug)

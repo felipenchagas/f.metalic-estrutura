@@ -1,6 +1,7 @@
 import { FileCode2, Download } from 'lucide-react'
 import { getSeoCities } from '@/lib/seo-cities-store'
 import ForceUpdateButton from './ForceUpdateButton'
+import CopyButton from './CopyButton'
 import { revalidatePath } from 'next/cache'
 import fs from 'fs'
 import path from 'path'
@@ -134,9 +135,12 @@ export default async function SitemapsPage() {
                                     </div>
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <a href={item.url} target="_blank" className="text-white/30 hover:text-white inline-flex p-2 rounded-sm hover:bg-white/5 transition-colors">
-                                        <Download size={16} />
-                                    </a>
+                                    <div className="flex items-center justify-end gap-1">
+                                        <CopyButton url={item.url} />
+                                        <a href={item.url} target="_blank" className="text-white/30 hover:text-white inline-flex p-2 rounded-sm hover:bg-white/5 transition-colors" title="Abrir Sitemap">
+                                            <Download size={16} />
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
