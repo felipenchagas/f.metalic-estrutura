@@ -31,10 +31,9 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
         formData.set('form_loaded_at', Date.now().toString())
 
         try {
-            await fetch('https://empresarialweb.com.br/backend/metalic/processa_formulario.php', {
+            await fetch('/api/quote', {
                 method: 'POST',
                 body: formData,
-                mode: 'no-cors',
             })
             setStatus('success')
             reset()
@@ -63,19 +62,24 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
 
             <div className="grid grid-cols-1 gap-4">
                 <div>
-                    <label className="form-label">Nome Completo *</label>
+                    <label htmlFor="nome" className="form-label">Nome Completo *</label>
                     <input
+                        id="nome"
+                        autoComplete="name"
                         className={`form-input ${errors.nome ? 'border-red-500' : ''}`}
-                        placeholder="Digite seu nome completo"
+                        placeholder="Ex: João da Silva"
                         {...register('nome', { required: true, pattern: /^[A-Za-zÀ-ÿ\s]+$/ })}
                     />
                     {errors.nome && <p className="text-red-400 text-xs mt-1">Nome inválido</p>}
                 </div>
 
                 <div>
-                    <label className="form-label">E-mail *</label>
+                    <label htmlFor="email" className="form-label">E-mail *</label>
                     <input
+                        id="email"
                         type="email"
+                        autoComplete="email"
+                        spellCheck={false}
                         className={`form-input ${errors.email ? 'border-red-500' : ''}`}
                         placeholder="seu@email.com"
                         {...register('email', { required: true })}
@@ -83,17 +87,25 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
                 </div>
 
                 <div>
-                    <label className="form-label">Telefone *</label>
+                    <label htmlFor="ddd" className="form-label">Telefone *</label>
                     <div className="flex gap-2">
                         <input
+                            id="ddd"
+                            type="tel"
+                            inputMode="numeric"
+                            autoComplete="tel-area-code"
                             className={`form-input w-20 ${errors.ddd ? 'border-red-500' : ''}`}
                             placeholder="DDD"
                             maxLength={2}
                             {...register('ddd', { required: true, pattern: /\d{2}/ })}
                         />
                         <input
+                            id="telefone"
+                            type="tel"
+                            inputMode="numeric"
+                            autoComplete="tel-local"
                             className={`form-input flex-1 ${errors.telefone ? 'border-red-500' : ''}`}
-                            placeholder="Número"
+                            placeholder="Ex: 99999-9999"
                             maxLength={9}
                             {...register('telefone', { required: true })}
                         />
@@ -102,16 +114,20 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
 
                 <div className="grid grid-cols-3 gap-2">
                     <div className="col-span-2">
-                        <label className="form-label">Cidade *</label>
+                        <label htmlFor="cidade" className="form-label">Cidade *</label>
                         <input
+                            id="cidade"
+                            autoComplete="address-level2"
                             className={`form-input ${errors.cidade ? 'border-red-500' : ''}`}
                             placeholder="Sua cidade"
                             {...register('cidade', { required: true })}
                         />
                     </div>
                     <div>
-                        <label className="form-label">Estado *</label>
+                        <label htmlFor="estado" className="form-label">Estado *</label>
                         <input
+                            id="estado"
+                            autoComplete="address-level1"
                             className={`form-input ${errors.estado ? 'border-red-500' : ''}`}
                             placeholder="UF"
                             maxLength={2}
@@ -121,10 +137,12 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
                 </div>
 
                 <div>
-                    <label className="form-label">Descrição do Projeto *</label>
+                    <label htmlFor="descricao" className="form-label">Descrição do Projeto *</label>
                     <textarea
+                        id="descricao"
+                        autoComplete="off"
                         className={`form-input resize-none h-24 ${errors.descricao ? 'border-red-500' : ''}`}
-                        placeholder="Descreva a estrutura metálica que deseja orçar..."
+                        placeholder="Descreva a estrutura metálica que deseja orçar…"
                         {...register('descricao', { required: true })}
                     />
                 </div>

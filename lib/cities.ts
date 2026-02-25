@@ -1,4 +1,5 @@
 export const citiesPR = [
+  { slug: 'curitiba', name: 'Curitiba' },
   { slug: 'abatia', name: 'Abatia' },
   { slug: 'adrianopolis', name: 'Adrianopolis' },
   { slug: 'agudos-do-sul', name: 'Agudos Do Sul' },
@@ -95,7 +96,6 @@ export const citiesPR = [
   { slug: 'cruzeiro-do-oeste', name: 'Cruzeiro Do Oeste' },
   { slug: 'cruzeiro-do-sul', name: 'Cruzeiro Do Sul' },
   { slug: 'cruzmaltina', name: 'Cruzmaltina' },
-  { slug: 'curitiba', name: 'Curitiba' },
   { slug: 'curiuva', name: 'Curiuva' },
   { slug: 'diamante-d-oeste', name: 'Diamante D Oeste' },
   { slug: 'diamante-do-norte', name: 'Diamante Do Norte' },

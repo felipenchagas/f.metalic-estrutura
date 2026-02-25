@@ -153,6 +153,64 @@ export default function ServicePageClient({ service, related }: Props) {
                                     </div>
                                 </div>
                             )}
+
+                            {/* Processo de Trabalho */}
+                            {service.content.process && (
+                                <div className="mt-16">
+                                    <h2 className="font-display font-bold text-2xl text-white mb-8">
+                                        Nosso <span className="text-primary">Processo</span> de Entrega
+                                    </h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {service.content.process.map((step, i) => (
+                                            <motion.div
+                                                key={i}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                                transition={{ delay: 0.4 + i * 0.1 }}
+                                                className="bg-white/5 border border-white/10 rounded-xl p-6 relative overflow-hidden"
+                                            >
+                                                <div className="text-6xl font-black text-white/5 absolute -right-2 -bottom-4 select-none">
+                                                    {step.step}
+                                                </div>
+                                                <h4 className="font-bold text-white text-lg mb-2 flex items-center gap-2">
+                                                    <span className="text-primary text-sm font-mono">0{step.step}.</span>
+                                                    {step.title}
+                                                </h4>
+                                                <p className="text-sm text-white/60 leading-relaxed relative z-10">{step.description}</p>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* FAQ SEO (Schema.org) */}
+                            {service.content.faq && (
+                                <div className="mt-16 mb-8">
+                                    <h2 className="font-display font-bold text-2xl text-white mb-6">
+                                        Perguntas <span className="text-primary">Frequentes</span>
+                                    </h2>
+                                    {/* Adiciona rich snippets automáticos de FAQ para o Google ler */}
+                                    <div className="flex flex-col gap-4" itemScope itemType="https://schema.org/FAQPage">
+                                        {service.content.faq.map((faq, i) => (
+                                            <motion.div
+                                                key={i}
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                                                transition={{ delay: 0.5 + i * 0.1 }}
+                                                className="bg-black/40 border border-white/5 p-5 rounded-lg"
+                                                itemScope itemProp="mainEntity" itemType="https://schema.org/Question"
+                                            >
+                                                <h4 className="font-bold text-white text-base mb-2" itemProp="name">
+                                                    {faq.question}
+                                                </h4>
+                                                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                                                    <p className="text-sm text-white/60 leading-relaxed" itemProp="text">{faq.answer}</p>
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         {/* ── Sidebar ───────────────────── */}

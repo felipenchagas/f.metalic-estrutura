@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Barlow_Condensed } from 'next/font/google'
 import './globals.css'
-import { baseMetadata, getLocalBusinessSchema, getWebsiteSchema } from '@/lib/seo'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import QuoteModal from '@/components/QuoteModal'
+import { baseMetadata, getGlobalSchemaGraph } from '@/lib/seo'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const barlowCondensed = Barlow_Condensed({
@@ -21,18 +18,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(getLocalBusinessSchema()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(getWebsiteSchema()) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(getGlobalSchemaGraph()) }}
         />
       </head>
       <body className={inter.className}>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <QuoteModal />
+        {children}
       </body>
     </html>
   )

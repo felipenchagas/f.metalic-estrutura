@@ -38,6 +38,10 @@ function CountUp({ value, active }: { value: number; active: boolean }) {
 
     useEffect(() => {
         if (!active || !ref.current) return
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            ref.current.textContent = value.toString()
+            return
+        }
         const duration = 1800
         const startTime = performance.now()
         const update = (time: number) => {

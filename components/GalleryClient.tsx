@@ -36,8 +36,8 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full border transition-all duration-200 ${activeCategory === cat
-                                    ? 'bg-primary border-primary text-white'
-                                    : 'border-[#1F2937] text-muted hover:border-primary/50 hover:text-white'
+                                ? 'bg-primary border-primary text-white'
+                                : 'border-[#1F2937] text-muted hover:border-primary/50 hover:text-white'
                                 }`}
                         >
                             {cat}
@@ -100,18 +100,21 @@ export default function GalleryClient({ items }: { items: GalleryItem[] }) {
                     >
                         <button
                             onClick={() => setLightbox(null)}
+                            aria-label="Fechar galeria"
                             className="absolute top-4 right-4 text-white/60 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                         >
                             <X size={20} />
                         </button>
                         <button
                             onClick={e => { e.stopPropagation(); prev() }}
+                            aria-label="Imagem anterior"
                             className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                         >
                             <ChevronLeft size={22} />
                         </button>
                         <button
                             onClick={e => { e.stopPropagation(); next() }}
+                            aria-label="Próxima imagem"
                             className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
                         >
                             <ChevronRight size={22} />

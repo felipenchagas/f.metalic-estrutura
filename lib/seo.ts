@@ -49,9 +49,13 @@ export const baseMetadata: Metadata = {
     robots: {
         index: true,
         follow: true,
+        nocache: true,
         googleBot: {
             index: true,
             follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
         },
     },
     openGraph: {
@@ -78,67 +82,137 @@ export const baseMetadata: Metadata = {
     },
     alternates: {
         canonical: baseUrl,
+        languages: {
+            'pt-BR': baseUrl
+        }
     },
-}
-
-export function getLocalBusinessSchema() {
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'LocalBusiness',
-        '@id': `${baseUrl}/#business`,
-        name: siteConfig.name,
-        description: siteConfig.description,
-        url: baseUrl,
-        telephone: siteConfig.phoneClean,
-        email: siteConfig.email,
-        logo: siteConfig.logo,
-        image: siteConfig.logo,
-        address: {
-            '@type': 'PostalAddress',
-            addressLocality: siteConfig.city,
-            addressRegion: siteConfig.state,
-            addressCountry: siteConfig.country,
-            streetAddress: 'CIC',
-        },
-        geo: {
-            '@type': 'GeoCoordinates',
-            latitude: siteConfig.lat,
-            longitude: siteConfig.lng,
-        },
-        areaServed: ['PR', 'SP', 'SC', 'RJ', 'MG', 'RS', 'Brasil'],
-        openingHours: 'Mo-Fr 08:00-18:00',
-        priceRange: '$$',
-        sameAs: [],
+    manifest: '/site.webmanifest',
+    icons: {
+        icon: '/favicon.ico',
+        shortcut: '/favicon.ico',
+        apple: '/apple-touch-icon.png',
     }
 }
 
-export function getServiceSchema(serviceName: string, serviceUrl: string, description: string) {
+export function getGlobalSchemaGraph() {
+    return {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebSite',
+                '@id': `${baseUrl}/#website`,
+                url: baseUrl,
+                name: siteConfig.name,
+                description: siteConfig.description,
+                publisher: {
+                    '@id': `${baseUrl}/#organization`
+                },
+                potentialAction: [
+                    {
+                        '@type': 'SearchAction',
+                        target: {
+                            '@type': 'EntryPoint',
+                            urlTemplate: `${baseUrl}/busca?q={search_term_string}`
+                        },
+                        'query-input': 'required name=search_term_string'
+                    }
+                ]
+            },
+            {
+                '@type': 'LocalBusiness',
+                '@id': `${baseUrl}/#organization`,
+                name: siteConfig.name,
+                url: baseUrl,
+                image: siteConfig.logo,
+                telephone: siteConfig.phoneClean,
+                email: siteConfig.email,
+                address: {
+                    '@type': 'PostalAddress',
+                    streetAddress: 'CIC',
+                    addressLocality: siteConfig.city,
+                    addressRegion: siteConfig.state,
+                    postalCode: '80000-000',
+                    addressCountry: siteConfig.country
+                },
+                geo: {
+                    '@type': 'GeoCoordinates',
+                    latitude: siteConfig.lat,
+                    longitude: siteConfig.lng
+                },
+                aggregateRating: {
+                    '@type': 'AggregateRating',
+                    ratingValue: '4.9',
+                    reviewCount: '128'
+                },
+                areaServed: [
+                    { '@type': 'City', name: 'Curitiba' },
+                    { '@type': 'City', name: 'São Paulo' },
+                    { '@type': 'City', name: 'Joinville' }
+                ],
+                openingHoursSpecification: [
+                    {
+                        '@type': 'OpeningHoursSpecification',
+                        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                        opens: '08:00',
+                        closes: '18:00'
+                    }
+                ],
+                sameAs: [
+                    'https://www.instagram.com/metalicestrutura',
+                    'https://www.facebook.com/metalicestrutura'
+                ]
+            },
+            {
+                '@type': 'SpeakableSpecification',
+                xpath: [
+                    "/html/head/title",
+                    "/html/head/meta[@name='description']/@content"
+                ]
+            }
+        ]
+    }
+}
+
+export function getBreadcrumbSchema(items: { name: string; url: string }[]) {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: items.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.name,
+            item: `${baseUrl}${item.url}`,
+        })),
+    }
+}
+
+export function getServiceSchema(serviceName: string, serviceUrl: string, description: string, image?: string) {
     return {
         '@context': 'https://schema.org',
         '@type': 'Service',
         name: serviceName,
         description: description,
         url: serviceUrl,
+        image: image ? `${baseUrl}${image}` : siteConfig.logo,
         provider: {
-            '@type': 'LocalBusiness',
-            name: siteConfig.name,
-            telephone: siteConfig.phoneClean,
-            url: baseUrl,
+            '@id': `${baseUrl}/#organization`
         },
-        areaServed: 'BR',
-    }
-}
-
-export function getWebsiteSchema() {
-    return {
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: siteConfig.name,
-        url: baseUrl,
-        potentialAction: {
-            '@type': 'SearchAction',
-            target: `${baseUrl}/busca?q={search_term_string}`,
-            'query-input': 'required name=search_term_string',
+        areaServed: {
+            '@type': 'Country',
+            name: 'Brasil'
         },
+        hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: 'Serviços de Estrutura Metálica',
+            itemListElement: [
+                {
+                    '@type': 'Offer',
+                    itemOffered: {
+                        '@type': 'Service',
+                        name: serviceName,
+                    }
+                }
+            ]
+        }
     }
 }

@@ -1,0 +1,367 @@
+📋 CHECKLIST DE AUDITORIA SEO PARA SERVIÇOS – 2026
+Versão Definitiva: O Mais Completo Framework de Diagnóstico e Otimização
+Objetivo: Este documento é uma referência máxima para auditores, estrategistas e profissionais de SEO que buscam a excelência. Ele cobre todas as camadas conhecidas da otimização para mecanismos de busca, incluindo fundamentos técnicos, arquitetura semântica, autoridade, prontidão para IA generativa (AEO/GEO), busca por voz, SEO local, experiência do usuário, integração com redes sociais e monitoramento de negócio. Cada item é detalhado com justificativas, métodos de implementação, exemplos práticos e ferramentas recomendadas.
+
+Como usar:
+
+Não se assuste com o tamanho. Este é um atlas, não um roteiro de viagem. Use-o para consultar áreas específicas, aprofundar conhecimentos ou construir seu próprio checklist customizado.
+
+Priorize sempre os itens 🔴 (Alta) – eles são a base. Depois, avance para 🟡 (Média) e, por fim, para 🔵 (Baixa) como diferenciais.
+
+Adapte ao seu contexto: negócios de serviços têm nuances diferentes de e-commerces ou portais.
+
+🔴 PRIORIDADE ALTA – A Base da Casa
+Impacto direto em indexação, visibilidade, experiência básica e conversão. Se algo aqui estiver quebrado, o resto do SEO perde eficácia.
+
+🧭 RASTREAMENTO, INDEXAÇÃO E CRAWL BUDGET
+Garantir que os mecanismos de busca encontrem e interpretem corretamente o conteúdo.
+
+Erros críticos no Google Search Console = zero. (404, soft-404, bloqueios, etc.)
+
+Análise de logs dos últimos 30 dias confirma que o Googlebot acessa URLs estratégicas e recebe status 200.
+
+Mobile-first indexing confirmado. (GSC > Configurações > Rastreamento > Googlebot Smartphone = primário)
+
+Sitemap.xml funcional e atualizado. (com <lastmod> dinâmico, enviado ao GSC)
+
+Controle de index bloat. (páginas finas, duplicadas, filtros indexados – aplicar noindex, 301 ou melhoria)
+
+Crawl waste identificado e controlado. (parâmetros inúteis bloqueados ou canonicalizados)
+
+Time to First Byte (TTFB) < 800ms em páginas críticas.
+
+Noindex automático em ambientes de staging/preview.
+
+🧱 ARQUITETURA E LINKAGEM INTERNA
+Estruturar o site para facilitar a descoberta e distribuir autoridade.
+
+Orfandade crítica resolvida. (páginas de serviço principais com links internos)
+
+Profundidade de clique ≤ 3. (páginas importantes acessíveis em até 3 cliques)
+
+Distribuição de autoridade interna. (páginas com backlinks linkam para serviços)
+
+📄 META TAGS FUNDAMENTAIS E IDENTIDADE
+Elementos básicos de cada página que orientam buscadores e usuários.
+
+Título único e otimizado por página. (≤ 60 caracteres, palavra‑chave principal próxima ao início)
+
+Meta description atraente e com palavra‑chave. (≤ 160 caracteres, chamada para ação)
+
+Meta robots configurada corretamente. (index, follow para páginas canônicas; noindex quando apropriado)
+
+Tag canonical presente e apontando para a versão preferida. (evita duplicidade)
+
+Hreflang implementado (se multi‑idioma/região). (tags ou headers corretos)
+
+Viewport configurado. (<meta name="viewport" content="width=device-width, initial-scale=1.0"> – essencial para mobile)
+
+Geo tags (para negócios locais).
+Exemplo:
+<meta name="geo.region" content="CA-AB">
+<meta name="geo.placename" content="Calgary">
+<meta name="geo.position" content="51.0447;-114.0719">
+<meta name="ICBM" content="51.0447, -114.0719">
+Nota: têm peso reduzido, mas são um diferencial de completude.
+
+🧠 INTENÇÃO, CANIBALIZAÇÃO E CONSOLIDAÇÃO
+Garantir que cada página sirva a um propósito claro e único.
+
+Canibalização semântica ausente. (duas páginas não disputam a mesma palavra‑chave)
+
+Consolidação de sinais aplicada. (canonical ou 301 para páginas similares)
+
+Conteúdo vs. intenção alinhado (BLUF). (resposta à intenção já no primeiro parágrafo)
+
+⚡ EXPERIÊNCIA DO USUÁRIO (TÉCNICA)
+Performance e estabilidade são fatores de ranking e de conversão.
+
+Core Web Vitals (dados de campo) dentro dos limites. (LCP ≤ 2,5s | CLS ≤ 0,1 | INP ≤ 200ms)
+
+TTFB < 800ms (reforço).
+
+Imagens otimizadas. (WebP/AVIF, dimensionadas, CDN)
+
+📍 SEO LOCAL – PRESENÇA E VISIBILIDADE
+Para negócios com atuação geográfica, o SEO local é a linha de frente.
+
+Google Business Profile (GBP) verificado e completo.
+
+NAP consistente. (Nome, Endereço, Telefone iguais em todo lugar)
+
+Páginas de localidade com conteúdo único. (se múltiplas unidades)
+
+Schema LocalBusiness implementado (JSON-LD). (com NAP, geo, horário, etc.)
+
+Estratégia ativa de reviews. (incentivar e responder avaliações)
+
+🟡 PRIORIDADE MÉDIA – Construindo Autoridade e Relevância
+Itens que fortalecem o domínio, criam vantagem competitiva e protegem contra atualizações de algoritmo.
+
+📊 AUTORIDADE, E‑E‑A‑T E COBERTURA SEMÂNTICA
+Demonstrar expertise, experiência, autoridade e confiança.
+
+Conteúdo com evidências de expertise. (estudos de caso, dados próprios, certificações)
+
+Autoria identificada em posts de blog. (autor com bio e linkedin)
+
+Cobertura semântica do nicho. (principais tópicos relacionados abordados)
+
+Lacunas temáticas mapeadas. (comparação com concorrentes)
+
+Estratégia de Content Pruning. (limpeza de conteúdo de baixo valor)
+
+🧠 ENTITY SEO E CONTEXTO SEMÂNTICO
+Conectar o site ao Knowledge Graph e facilitar a compreensão por IA.
+
+Otimização por entidades. (referências a entidades conhecidas com schemas e links)
+
+Entity signals fortalecidos. (sameAs no schema da organização e autores)
+
+Interligação por entidades. (links internos baseados em relações semânticas)
+
+🏗 ARQUITETURA SEMÂNTICA E CLUSTERS
+Organizar o conteúdo em pilhas temáticas.
+
+Topic clusters implementados. (páginas pilar linkando para páginas de suporte e vice‑versa)
+
+🏗 DADOS TÉCNICOS E ESTRUTURA (SCHEMAS AVANÇADOS)
+Aprofundamento em aspectos técnicos que impactam a interpretação do conteúdo.
+
+Schemas implementados e validados. (para cada tipo de conteúdo: Article, BlogPosting, FAQPage, HowTo, Service, LocalBusiness, Product, etc.)
+
+Uso de @graph para combinar múltiplos schemas em um único bloco JSON-LD.
+Exemplo (inspirado no seu projeto):
+
+json
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { ... LocalBusiness ... },
+    { ... PaintingService ... },
+    { ... FAQPage ... },
+    { ... WebSite ... },
+    { ... BreadcrumbList ... }
+  ]
+}
+Benefício: Organização e performance.
+
+AggregateRating e Review implementados (se houver avaliações).
+Exemplo:
+
+json
+"aggregateRating": {
+  "@type": "AggregateRating",
+  "ratingValue": "4.9",
+  "reviewCount": "125"
+}
+areaServed com múltiplas cidades/regiões.
+Exemplo:
+
+json
+"areaServed": [
+  {"@type": "City", "name": "Calgary"},
+  {"@type": "City", "name": "Airdrie"},
+  ...
+]
+openingHoursSpecification para horários complexos.
+Exemplo:
+
+json
+"openingHoursSpecification": [
+  {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "08:00",
+    "closes": "18:00"
+  },
+  {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "Saturday",
+    "opens": "09:00",
+    "closes": "14:00"
+  }
+]
+Rich Results Test passado. (todas as schemas elegíveis)
+
+Renderização JavaScript validada. (para sites com Next.js/React)
+
+Paridade mobile/desktop. (conteúdo e diretivas iguais)
+
+Controle de facetas e parâmetros.
+
+Configuração de redirecionamentos otimizada.
+
+Hreflang (já incluso em alta, mas aqui reforçado).
+
+📍 SEO LOCAL – CITAÇÕES E AUTORIDADE LOCAL
+Aprofundamento para negócios locais.
+
+Citações em diretórios locais relevantes. (Guia Mais, Apontador, etc.)
+
+Backlinks locais relevantes. (de câmaras, jornais, associações)
+
+Páginas de categoria local (se aplicável). (conteúdo próprio para cada região)
+
+Estrutura de URL hierárquica para localidades. (ex.: /sp/sao-paulo/restaurantes)
+
+🔗 PERFIL DE LINKS E AUTORIDADE EXTERNA
+Links externos ainda são um dos principais fatores de autoridade.
+
+Qualidade de backlinks. (métricas como DR, domínios de referência, toxic score)
+
+Diversidade de âncoras. (textos naturais)
+
+🧠 SINAIS DE FRESHNESS E RECRAWL
+Manter o conteúdo atualizado estimula visitas mais frequentes dos bots.
+
+Datas de atualização visíveis. (publicação/modificação)
+
+Estímulos de recrawl. (reenvio de sitemap, solicitação de indexação)
+
+🎯 PERFORMANCE EM RESULTADOS
+Análise de métricas de busca.
+
+Oportunidades de CTR identificadas. (páginas com posição alta e CTR baixo)
+
+Performance no pacote local (Map Pack). (se aplicável)
+
+♿ ACESSIBILIDADE SEMÂNTICA
+SEO e acessibilidade andam juntos.
+
+Hierarquia de headings correta. (H1 único, H2, H3…)
+
+Acessibilidade básica. (contraste, navegação por teclado, ARIA)
+
+🔵 PRIORIDADE BAIXA – Diferenciais, Experimentação e Preparação para o Futuro
+Itens com evidências ainda limitadas ou emergentes, mas de baixo custo e potencial assimétrico. Invista tempo controlado para testar. Lembre-se: SEO é especulativo; testar com baixo risco é inteligente.
+
+📱 INTEGRAÇÃO COM REDES SOCIAIS E BRANDABILIDADE
+Otimizar a aparência do site quando compartilhado em redes sociais e melhorar a identidade visual.
+
+Open Graph tags implementadas.
+Exemplo mínimo:
+
+html
+<meta property="og:title" content="..." />
+<meta property="og:description" content="..." />
+<meta property="og:image" content="..." />
+<meta property="og:url" content="..." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="..." />
+<meta property="og:locale" content="pt_BR" />
+Twitter Cards implementados.
+Exemplo:
+
+html
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="..." />
+<meta name="twitter:description" content="..." />
+<meta name="twitter:image" content="..." />
+Favicons completos e webmanifest.
+Incluir ícones para diferentes dispositivos (apple-touch-icon, favicon-32x32, favicon-16x16, site.webmanifest).
+Exemplo de manifesto:
+
+json
+{
+  "name": "Brixel Painting",
+  "short_name": "Brixel",
+  "icons": [...],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}
+🤖 IA GENERATIVA (AEO / GEO) E BUSCA POR VOZ
+Otimização para mecanismos de resposta e assistentes.
+
+Schema SpeakableSpecification para voice search. (marcar seções faláveis)
+
+FAQPage com perguntas reais e schema. (já incluso em alta/média, mas aqui com ênfase em quantidade e qualidade)
+
+HowTo para guias passo a passo.
+
+Conteúdo "atômico" para extração por IA. (listas, tabelas, respostas diretas)
+
+Monitoramento de citações em AI Overviews. (planilha com buscas‑alvo)
+
+LLMs.txt (experimental). (arquivo na raiz com resumo do site)
+
+Otimização para voice search (long-tail conversational queries). (incluir perguntas completas)
+
+🎥 OTIMIZAÇÃO MULTIMODAL
+Preparar imagens e vídeos para busca visual e por IA.
+
+Alt text descritivo e contextualizado.
+
+Vídeos com transcrição/legendas.
+
+Otimização para Google Lens e busca visual. (imagens originais de alta qualidade)
+
+📍 SEO LOCAL – ENGAJAMENTO E DIFERENCIAIS
+Ações que fortalecem a presença local além do básico.
+
+Posts regulares no Google Business Profile.
+
+Q&A no GBP respondido ativamente.
+
+Atributos locais específicos preenchidos. (acessibilidade, estacionamento, etc.)
+
+Conteúdo hiperlocal. (sobre a comunidade, eventos, parcerias)
+
+Clique-to-WhatsApp Business visível e funcional.
+
+👁 EXPERIÊNCIA DO USUÁRIO (UX/CRO)
+Melhorias que impactam conversão e sinalizam qualidade.
+
+Análise de rage clicks. (Microsoft Clarity, Hotjar)
+
+Mapas de calor analisados.
+
+Testes A/B em CTAs.
+
+⚙️ MONITORAMENTO E SEGURANÇA
+Proteger o site e responder rapidamente a problemas.
+
+Alertas automáticos configurados. (quedas de tráfego, picos de erros)
+
+Headers de segurança implementados. (HSTS, CSP, sem mixed content)
+
+Backups regulares e plano de recuperação.
+
+🧠 BLOCO ESTRATÉGICO – Avaliação Global de Maturidade SEO
+Preencha a tabela com uma nota de 0 a 10 para cada área, baseada no percentual de itens OK dentro da prioridade correspondente. Use as notas para orientar o plano de ação.
+
+Área	Nota (0-10)	Observações / Itens críticos pendentes
+Rastreamento e indexação (🔴)		
+Arquitetura e linkagem interna (🔴)		
+Meta tags fundamentais (🔴)		
+Intenção e conteúdo (🔴)		
+Experiência do usuário (CWV) (🔴)		
+SEO local (básico) (🔴)		(se aplicável)
+Autoridade e E‑E‑A‑T (🟡)		
+Entidades e semântica (🟡)		
+Schemas avançados (🟡)		
+Links externos (🟡)		
+Redes sociais e brandabilidade (🔵)		
+IA generativa (AEO/GEO) (🔵)		Experimental
+UX e conversão (🔵)		
+Monitoramento e segurança (🔵)		
+Interpretação da maturidade (foco em itens 🔴 e 🟡)
+Média das notas (🔴 + 🟡)	Classificação	Ação recomendada
+9,0 – 10,0	Avançado	Mantenha a base, teste diferenciais (🔵). Monitore concorrentes e tendências.
+7,0 – 8,9	Sólido com lacunas	Fortaleça os itens 🟡 que estão abaixo da média. Reveja itens 🔴 que possam ter regredido.
+5,0 – 6,9	Funcional, mas limitado	Foco total nos 🔴 que ainda não estão verdes. Planeje um sprint de correções.
+< 5,0	Alto risco	Intervenção imediata nos 🔴. Considere apoio especializado. Reavalie em 30 dias.
+✅ ORIENTAÇÕES FINAIS (leia antes de começar)
+SEO é empírico e especulativo. Este checklist é um mapa, não uma verdade absoluta. Use-o para formular hipóteses, teste, mexa, adapte.
+
+Priorize pelo impacto no negócio. Conversões (ligações, formulários, agendamentos) são mais importantes que rankings isolados.
+
+Mantenha um diário de hipóteses. Registre o que testou, os resultados e as conclusões. Isso constrói conhecimento proprietário e acelera a evolução.
+
+Desconfie de modismos, mas não os ignore. Itens como LLMs.txt são experimentais e de baixo custo. Teste-os com orçamento pequeno, mas não refaça o site por causa deles.
+
+Reavalie a cada 6 meses. Algoritmos mudam, concorrentes evoluem, seu negócio também.
+
+Adapte ao seu tipo de projeto. Este checklist foi pensado para negócios de serviços. Se você tem um e-commerce, um portal de notícias ou um site institucional puro, alguns itens podem pesar mais ou menos.

@@ -57,8 +57,8 @@ export default function Navbar() {
             {/* Main Navbar */}
             <nav
                 className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
-                        ? 'bg-[#0A0A0A]/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-[#1a1a1a]'
-                        : 'bg-[#0A0A0A]'
+                    ? 'bg-[#0A0A0A]/95 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-[#1a1a1a]'
+                    : 'bg-[#0A0A0A]'
                     }`}
             >
                 <div className="container-max">
@@ -119,6 +119,7 @@ export default function Navbar() {
                             </div>
 
                             <NavLink href="/galeria">Galeria</NavLink>
+                            <NavLink href="/noticias">Notícias</NavLink>
                             <NavLink href="/contato">Contato</NavLink>
                         </div>
 

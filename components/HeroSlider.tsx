@@ -72,7 +72,7 @@ export default function HeroSlider() {
                                 fill
                                 className="object-cover"
                                 priority={i === 0}
-                                quality={90}
+                                quality={75}
                             />
                             {/* Overlays */}
                             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
@@ -102,6 +102,21 @@ export default function HeroSlider() {
                                     transition={{ duration: 0.5, delay: 0.2 }}
                                     className="max-w-3xl"
                                 >
+                                    {/* Social proof badge */}
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                        className="inline-flex items-center gap-2 mb-5"
+                                    >
+                                        <div className="flex items-center gap-2 bg-black/40 backdrop-blur-sm border border-white/10 px-3 py-1.5">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                                            <span className="text-[10px] font-bold uppercase tracking-widest text-white/70">
+                                                +2.000 obras realizadas em todo o Brasil
+                                            </span>
+                                        </div>
+                                    </motion.div>
+
                                     {/* Accent Line */}
                                     <motion.div
                                         initial={{ width: 0 }}
