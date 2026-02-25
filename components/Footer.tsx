@@ -76,12 +76,12 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Col 2: Services — 3 cols */}
-                    <div className="md:col-span-3">
+                    {/* Col 2: Services — 4 cols */}
+                    <div className="md:col-span-4">
                         <h4 className="text-[11px] font-bold uppercase tracking-widest text-white mb-5">
                             Serviços
                         </h4>
-                        <ul className="flex flex-col gap-2.5">
+                        <ul className="grid grid-cols-2 gap-x-4 gap-y-2.5">
                             {services.map(s => (
                                 <li key={s.slug}>
                                     <Link
@@ -122,8 +122,8 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Col 4: Gallery — 4 cols */}
-                    <div className="md:col-span-4">
+                    {/* Col 4: Gallery — 3 cols */}
+                    <div className="md:col-span-3">
                         <h4 className="text-[11px] font-bold uppercase tracking-widest text-white mb-5">
                             Galeria
                         </h4>
