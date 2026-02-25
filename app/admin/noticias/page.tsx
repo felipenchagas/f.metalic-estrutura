@@ -9,6 +9,8 @@ export default function AdminNoticiasPage() {
     const [loading, setLoading] = useState(true)
     const [isEditing, setIsEditing] = useState(false)
     const [currentArticle, setCurrentArticle] = useState<Partial<NewsArticle> | null>(null)
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+    const [articleToDelete, setArticleToDelete] = useState<string | null>(null)
 
     useEffect(() => {
         fetchArticles()
@@ -58,13 +60,20 @@ export default function AdminNoticiasPage() {
         }
     }
 
-    const handleDelete = async (slug: string) => {
-        if (!confirm('Deseja realmente excluir esta publicação?')) return
+    const confirmDelete = (slug: string) => {
+        setArticleToDelete(slug)
+        setDeleteModalOpen(true)
+    }
+
+    const handleDelete = async () => {
+        if (!articleToDelete) return
 
         try {
-            const res = await fetch(`/api/admin/noticias?slug=${slug}`, { method: 'DELETE' })
+            const res = await fetch(`/api/admin/noticias?slug=${articleToDelete}`, { method: 'DELETE' })
             if (res.ok) {
                 await fetchArticles()
+                setDeleteModalOpen(false)
+                setArticleToDelete(null)
             }
         } catch (error) {
             alert('Erro ao excluir')
@@ -222,7 +231,7 @@ export default function AdminNoticiasPage() {
                                         <button onClick={() => { setCurrentArticle(article); setIsEditing(true); }} className="p-2 text-white/40 hover:text-green-400 hover:bg-green-400/10 rounded-lg transition-colors tooltip-trigger" title="Editar">
                                             <Pencil size={18} />
                                         </button>
-                                        <button onClick={() => handleDelete(article.slug)} className="p-2 text-white/40 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors tooltip-trigger" title="Excluir">
+                                        <button onClick={() => confirmDelete(article.slug)} className="p-2 text-white/40 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors tooltip-trigger" title="Excluir">
                                             <Trash2 size={18} />
                                         </button>
                                     </div>
@@ -230,6 +239,34 @@ export default function AdminNoticiasPage() {
                             ))}
                         </div>
                     )}
+                </div>
+            )}
+            {/* Delete Modal */}
+            {deleteModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+                    <div className="bg-[#111] border border-red-500/20 rounded-xl p-6 max-w-md w-full shadow-2xl">
+                        <div className="flex items-center gap-3 text-red-500 mb-4">
+                            <Trash2 size={24} />
+                            <h3 className="text-xl font-bold">Excluir Publicação</h3>
+                        </div>
+                        <p className="text-white/70 mb-6 text-sm">
+                            Tem certeza que deseja excluir esta publicação? Esta ação não poderá ser desfeita e removerá a notícia do ar permanentemente.
+                        </p>
+                        <div className="flex items-center justify-end gap-3">
+                            <button
+                                onClick={() => { setDeleteModalOpen(false); setArticleToDelete(null); }}
+                                className="px-4 py-2 text-sm font-semibold text-white/50 hover:text-white transition-colors"
+                            >
+                                Cancelar
+                            </button>
+                            <button
+                                onClick={handleDelete}
+                                className="px-5 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-500 rounded-lg transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(220,38,38,0.3)]"
+                            >
+                                <Trash2 size={16} /> Confirmar Exclusão
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
