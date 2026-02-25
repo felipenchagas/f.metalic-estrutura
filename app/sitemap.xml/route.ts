@@ -4,8 +4,6 @@ export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://metalic-estrutura.com.br'
   const currentDate = new Date().toISOString()
 
-  const { citiesPR } = await import('@/lib/cities')
-
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
   xml += '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 
@@ -27,12 +25,28 @@ export async function GET() {
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
 
-  // Cities Sitemaps (Directly listed to avoid Nested Indexing errors in Google Console)
+  // State Pages Sitemap (Aggregates ALL cities without neighborhoods into a single Level 2 Sitemap)
+  xml += `  <sitemap>
+    <loc>${baseUrl}/sitemap-parana-cidades.xml</loc>
+    <lastmod>${currentDate}</lastmod>
+  </sitemap>\n`
+
+  // Dynamic Sitemaps Index (Cities WITH Neighborhoods get their own exclusive Level 2 Sitemap on the Master)
+  const { citiesPR } = await import('@/lib/cities')
+  const { getSeoCities } = await import('@/lib/seo-cities-store')
+
+  const seoData = await getSeoCities()
+
   citiesPR.forEach((city) => {
-    xml += `  <sitemap>
+    const citySeo = seoData[city.slug]
+    const hasNeighborhoods = citySeo && citySeo.neighborhoods && citySeo.neighborhoods.length > 0
+
+    if (hasNeighborhoods) {
+      xml += `  <sitemap>
     <loc>${baseUrl}/sitemap-${city.slug}.xml</loc>
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
+    }
   })
 
   xml += '</sitemapindex>'
