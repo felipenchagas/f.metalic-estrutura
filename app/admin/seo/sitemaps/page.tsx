@@ -54,7 +54,7 @@ export default async function SitemapsPage() {
     citiesPR.forEach((c) => {
         const cData = seoCities[c.slug]
         const nbLength = cData?.neighborhoods?.length || 0
-        if (nbLength > 0) {
+        if (nbLength > 10) {
             sitemapsCidades.push({
                 name: `sitemap-${c.slug}.xml`,
                 type: 'Capitais/Bairros',

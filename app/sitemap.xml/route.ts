@@ -39,9 +39,10 @@ export async function GET() {
 
   citiesPR.forEach((city) => {
     const citySeo = seoData[city.slug]
-    const hasNeighborhoods = citySeo && citySeo.neighborhoods && citySeo.neighborhoods.length > 0
+    const nbLength = citySeo?.neighborhoods?.length || 0
+    const isMetropole = nbLength > 10
 
-    if (hasNeighborhoods) {
+    if (isMetropole) {
       xml += `  <sitemap>
     <loc>${baseUrl}/sitemap-${city.slug}.xml</loc>
     <lastmod>${currentDate}</lastmod>

@@ -14,10 +14,11 @@ export async function GET() {
 
     for (const city of citiesPR) {
         const citySeo = seoData[city.slug]
-        const hasNeighborhoods = citySeo && citySeo.neighborhoods && citySeo.neighborhoods.length > 0
+        const nbLength = citySeo?.neighborhoods?.length || 0
+        const isMetropole = nbLength > 10
 
-        // Cidades sem bairros entram no mapa consolidado geral do PR
-        if (!hasNeighborhoods) {
+        // Cidades pequenas (<= 10 bairros) entram no mapa consolidado geral do PR
+        if (!isMetropole) {
             const lastMod = citySeo?.lastUpdated || currentDate
 
             xml += `  <url>
