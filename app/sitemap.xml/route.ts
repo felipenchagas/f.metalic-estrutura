@@ -19,9 +19,15 @@ export async function GET() {
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
 
-  // SEO Pages Sitemap (Obras, Guias, Notícias)
+  // SEO Pages Sitemap (Obras, Guias)
   xml += `  <sitemap>
     <loc>${baseUrl}/sitemap-seo-pages.xml</loc>
+    <lastmod>${currentDate}</lastmod>
+  </sitemap>\n`
+
+  // Blog/News Sitemap
+  xml += `  <sitemap>
+    <loc>${baseUrl}/sitemap-noticias.xml</loc>
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
 

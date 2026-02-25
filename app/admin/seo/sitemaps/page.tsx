@@ -21,7 +21,7 @@ export default async function SitemapsPage() {
 
     const mainCount = 3
     const servicesCount = services.length
-    const seoPagesCount = projects.length + guides.length + newsCount
+    const seoPagesCount = projects.length + guides.length
 
     let citiesAndNbCount = 0
     citiesPR.forEach(city => {
@@ -39,6 +39,7 @@ export default async function SitemapsPage() {
         revalidatePath('/sitemap-main.xml')
         revalidatePath('/sitemap-services.xml')
         revalidatePath('/sitemap-seo-pages.xml')
+        revalidatePath('/sitemap-noticias.xml')
         for (const city of citiesPR) {
             revalidatePath(`/sitemap-${city.slug}.xml`)
         }
@@ -75,6 +76,7 @@ export default async function SitemapsPage() {
         { name: 'sitemap-main.xml', type: 'Institucional', pages: mainCount, url: '/sitemap-main.xml' },
         { name: 'sitemap-services.xml', type: 'Soluções', pages: servicesCount, url: '/sitemap-services.xml' },
         { name: 'sitemap-seo-pages.xml', type: 'Fundo-de-Funil', pages: seoPagesCount, url: '/sitemap-seo-pages.xml' },
+        { name: 'sitemap-noticias.xml', type: 'Blog/Notícias', pages: newsCount, url: '/sitemap-noticias.xml' },
     ]
 
     const renderTable = (data: any[], title: string, subtitle: string, color: string, border: string) => (
