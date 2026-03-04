@@ -66,7 +66,7 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
                     <input
                         id="nome"
                         autoComplete="name"
-                        className={`form-input ${errors.nome ? 'border-red-500' : ''}`}
+                        className={`form-input w-full ${errors.nome ? 'border-red-500' : ''}`}
                         placeholder="Ex: João da Silva"
                         {...register('nome', { required: true, pattern: /^[A-Za-zÀ-ÿ\s]+$/ })}
                     />
@@ -80,7 +80,7 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
                         type="email"
                         autoComplete="email"
                         spellCheck={false}
-                        className={`form-input ${errors.email ? 'border-red-500' : ''}`}
+                        className={`form-input w-full ${errors.email ? 'border-red-500' : ''}`}
                         placeholder="seu@email.com"
                         {...register('email', { required: true })}
                     />
@@ -88,27 +88,31 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
 
                 <div>
                     <label htmlFor="ddd" className="form-label">Telefone *</label>
-                    <div className="flex gap-2">
-                        <input
-                            id="ddd"
-                            type="tel"
-                            inputMode="numeric"
-                            autoComplete="tel-area-code"
-                            className={`form-input w-20 ${errors.ddd ? 'border-red-500' : ''}`}
-                            placeholder="DDD"
-                            maxLength={2}
-                            {...register('ddd', { required: true, pattern: /\d{2}/ })}
-                        />
-                        <input
-                            id="telefone"
-                            type="tel"
-                            inputMode="numeric"
-                            autoComplete="tel-local"
-                            className={`form-input flex-1 ${errors.telefone ? 'border-red-500' : ''}`}
-                            placeholder="Ex: 99999-9999"
-                            maxLength={9}
-                            {...register('telefone', { required: true })}
-                        />
+                    <div className="flex items-center gap-2 w-full">
+                        <div className="w-[70px] shrink-0">
+                            <input
+                                id="ddd"
+                                type="tel"
+                                inputMode="numeric"
+                                autoComplete="tel-area-code"
+                                className={`form-input w-full text-center ${errors.ddd ? 'border-red-500' : ''}`}
+                                placeholder="DDD"
+                                maxLength={2}
+                                {...register('ddd', { required: true, pattern: /\d{2}/ })}
+                            />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <input
+                                id="telefone"
+                                type="tel"
+                                inputMode="numeric"
+                                autoComplete="tel-local"
+                                className={`form-input w-full ${errors.telefone ? 'border-red-500' : ''}`}
+                                placeholder="99999-9999"
+                                maxLength={9}
+                                {...register('telefone', { required: true })}
+                            />
+                        </div>
                     </div>
                 </div>
 
@@ -118,7 +122,7 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
                         <input
                             id="cidade"
                             autoComplete="address-level2"
-                            className={`form-input ${errors.cidade ? 'border-red-500' : ''}`}
+                            className={`form-input w-full ${errors.cidade ? 'border-red-500' : ''}`}
                             placeholder="Sua cidade"
                             {...register('cidade', { required: true })}
                         />
@@ -128,7 +132,7 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
                         <input
                             id="estado"
                             autoComplete="address-level1"
-                            className={`form-input ${errors.estado ? 'border-red-500' : ''}`}
+                            className={`form-input w-full ${errors.estado ? 'border-red-500' : ''}`}
                             placeholder="UF"
                             maxLength={2}
                             {...register('estado', { required: true, pattern: /[A-Za-z]{2}/ })}
@@ -141,7 +145,7 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
                     <textarea
                         id="descricao"
                         autoComplete="off"
-                        className={`form-input resize-none h-24 ${errors.descricao ? 'border-red-500' : ''}`}
+                        className={`form-input w-full resize-none h-24 ${errors.descricao ? 'border-red-500' : ''}`}
                         placeholder="Descreva a estrutura metálica que deseja orçar…"
                         {...register('descricao', { required: true })}
                     />
