@@ -13,7 +13,7 @@ export function middleware(req: NextRequest) {
 
     // Check auth cookie
     const auth = req.cookies.get('admin_auth')?.value
-    const password = process.env.ADMIN_PASSWORD || 'cassiano8080'
+    const password = process.env.ADMIN_PASSWORD || 'cassio9975@2'
 
     if (!auth || auth !== password) {
         const loginUrl = new URL('/admin/login', req.url)

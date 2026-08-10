@@ -13,10 +13,10 @@ export default async function LoginPage({
         'use server'
         const username = formData.get('username') as string
         const password = formData.get('password') as string
-        const adminPassword = process.env.ADMIN_PASSWORD || 'cassiano8080'
+        const adminPassword = process.env.ADMIN_PASSWORD || 'cassio9975@2'
 
-        // Validação estrita exigindo User 'admin' e Password 'cassiano8080'
-        if (username !== 'admin' || (password !== 'cassiano8080' && password !== adminPassword)) {
+        // Validação estrita exigindo o usuário admin e a senha configurada.
+        if (username !== 'admin' || password !== adminPassword) {
             redirect('/admin/login?error=1')
         }
 
