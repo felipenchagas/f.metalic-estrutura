@@ -26,7 +26,16 @@ export async function GET(request: Request) {
 
   try {
     const citiesStore = await getSeoCities();
-    const pages = Object.entries(citiesStore).map(([slug, data]) => ({
+    const mainPages = [
+      { route: '/', label: 'Página Inicial (Home)', status: 'published', updatedAt: new Date().toISOString() },
+      { route: '/servicos', label: 'Nossos Serviços', status: 'published', updatedAt: new Date().toISOString() },
+      { route: '/obras', label: 'Galeria de Obras Realizadas', status: 'published', updatedAt: new Date().toISOString() },
+      { route: '/contato', label: 'Fale Conosco / Orçamentos', status: 'published', updatedAt: new Date().toISOString() },
+      { route: '/guia', label: 'Guia Técnico de Estruturas Metálicas', status: 'published', updatedAt: new Date().toISOString() },
+      { route: '/noticias', label: 'Notícias & Artigos Blog', status: 'published', updatedAt: new Date().toISOString() }
+    ];
+
+    const cityPages = Object.entries(citiesStore).map(([slug, data]) => ({
       route: `/pr/${slug}`,
       label: data.customH1 || `Estrutura Metálica em ${slug.toUpperCase()}`,
       status: data.status === 'customized' ? 'published' : 'draft',
@@ -35,7 +44,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       siteName: 'Metalic Estrutura',
-      pages
+      pages: [...mainPages, ...cityPages]
     });
   } catch (err: any) {
     return NextResponse.json({ error: err?.message || 'Erro ao carregar páginas.' }, { status: 500 });

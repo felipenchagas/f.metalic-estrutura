@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, Barlow_Condensed } from 'next/font/google'
 import './globals.css'
 import { baseMetadata, getGlobalSchemaGraph } from '@/lib/seo'
+import GeoCoreTracker from '@/components/GeoCoreTracker'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const barlowCondensed = Barlow_Condensed({
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={inter.className}>
+        <GeoCoreTracker />
         {children}
       </body>
     </html>
