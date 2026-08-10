@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { timingSafeEqual } from 'node:crypto';
 import { getSeoCities } from '@/lib/seo-cities-store';
+import { citiesPR } from '@/lib/cities';
+import { generateSEOForCity } from '@/lib/seo-generator';
 
 function isAuthorized(request: Request) {
   const received = request.headers.get('x-geocore-secret') || '';
@@ -138,19 +140,78 @@ export async function GET(request: Request) {
       }
     ];
 
-    const cityPages = Object.entries(citiesStore).map(([slug, data]) => ({
-      route: `/pr/${slug}`,
-      label: data.customH1 || `Estrutura Metálica em ${slug.toUpperCase()}`,
-      title: data.customMetaTitle || `Estrutura Metálica em ${slug.toUpperCase()} | ${siteName}`,
-      metaDescription: data.customMetaDesc || `Soluções em estrutura metálica na cidade de ${slug.toUpperCase()}.`,
-      h1: data.customH1 || `Estrutura Metálica em ${slug.toUpperCase()}`,
-      introduction: data.customHeroText || `<p>Atendimento especializado em ${slug.toUpperCase()}.</p>`,
-      sections: [],
-      benefits: [],
-      faq: [],
-      status: data.status === 'customized' ? 'published' : 'draft',
-      updatedAt: data.lastUpdated || new Date().toISOString()
-    }));
+    const defaultAdvantages = [
+      { title: 'Velocidade de instalação', desc: 'Estrutura pré-fabricada em fábrica' },
+      { title: 'Custo de manutenção reduzido', desc: 'Muito mais baixo que estruturas convencionais' },
+      { title: 'Durabilidade superior', desc: 'Durabilidade superior a 50 anos com manutenção adequada' },
+      { title: 'Flexibilidade de projeto', desc: 'Possibilidade de ampliação ou desmontagem futura' },
+      { title: 'Vãos livres amplos', desc: 'Vãos maiores sem colunas intermediárias' },
+      { title: 'Sustentabilidade', desc: 'Material 100% reciclável e sustentável' }
+    ];
+
+    const allCitySlugsMap = new Map<string, { name: string }>();
+    for (const c of citiesPR) {
+      allCitySlugsMap.set(c.slug, { name: c.name });
+    }
+    for (const [slug] of Object.entries(citiesStore)) {
+      if (!allCitySlugsMap.has(slug)) {
+        allCitySlugsMap.set(slug, { name: slug.replace(/-/g, ' ').toUpperCase() });
+      }
+    }
+
+    const cityPages = Array.from(allCitySlugsMap.entries()).map(([slug, { name: cityName }]) => {
+      const data = citiesStore[slug] || {};
+      const generated = generateSEOForCity(cityName);
+
+      const title = data.customMetaTitle || generated.title;
+      const metaDescription = data.customMetaDesc || generated.description;
+      const h1 = data.customH1 || generated.h1;
+      const introduction = data.customHeroText || generated.heroSubtitle;
+
+      const p1 = data.customText1 || generated.customText[0];
+      const p2 = data.customText2 || generated.customText[1];
+      const quote = data.customQuote || generated.customQuote;
+
+      const faqs = [
+        {
+          question: `Qual o preço do m² da estrutura metálica em ${cityName}?`,
+          answer: `O valor do m² oscila conforme a complexidade, tipo de aço e vão livre do projeto em ${cityName}. Em média, uma cobertura metálica industrial padrão inicia em torno de R$ 180 a R$ 350 o m² instalado, dependendo da cotação do aço. Apenas um orçamento detalhado pode cravar o valor exato.`
+        },
+        {
+          question: `Vocês parcelam a construção do galpão ou cobertura em ${cityName}?`,
+          answer: `Sim. Entendemos que o investimento em galpões e mezaninos é estrutural para empresas. Oferecemos cronogramas de desembolso atrelados à entrega das etapas da obra, facilitando o fluxo de caixa do seu negócio.`
+        },
+        {
+          question: `A Metalic Estrutura atende obras residenciais em ${cityName}?`,
+          answer: `Nosso foco principal são estruturas comerciais, industriais e de médio a grande porte (galpões, redes atacadistas, quadras, grandes coberturas), mas avaliamos projetos arquitetônicos residenciais de alto padrão ou condomínios dependendo da viabilidade técnica.`
+        }
+      ];
+
+      const sections = [
+        {
+          title: `Fabricação e Montagem de Cobertura Metálica em ${cityName}`,
+          paragraphs: [p1, p2].filter(Boolean)
+        },
+        ...(quote ? [{
+          title: `Destaque Operacional em ${cityName}`,
+          paragraphs: [quote]
+        }] : [])
+      ];
+
+      return {
+        route: `/pr/${slug}`,
+        label: data.customH1 || `Cobertura Metálica em ${cityName}`,
+        title,
+        metaDescription,
+        h1,
+        introduction: introduction ? `<p>${introduction}</p>` : `<p>Atendimento especializado em ${cityName}.</p>`,
+        sections,
+        benefits: defaultAdvantages,
+        faq: faqs,
+        status: data.status === 'customized' ? 'published' : 'published',
+        updatedAt: data.lastUpdated || new Date().toISOString()
+      };
+    });
 
     return NextResponse.json({
       siteName: 'Metalic Estrutura',
