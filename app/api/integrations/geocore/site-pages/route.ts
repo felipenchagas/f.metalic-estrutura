@@ -3,6 +3,8 @@ import { timingSafeEqual } from 'node:crypto';
 import { getSeoCities } from '@/lib/seo-cities-store';
 import { citiesPR } from '@/lib/cities';
 import { generateSEOForCity } from '@/lib/seo-generator';
+import { services } from '@/lib/services';
+import { guides } from '@/lib/guides';
 
 function isAuthorized(request: Request) {
   const received = request.headers.get('x-geocore-secret') || '';
@@ -61,7 +63,7 @@ export async function GET(request: Request) {
       },
       {
         route: '/servicos',
-        label: 'Nossos Serviços',
+        label: 'Nossos Serviços (Visão Geral)',
         title: `Serviços Especializados | ${siteName}`,
         metaDescription: `Conheça os serviços oferecidos pela ${siteName}. Engenharia, atendimento sob medida e soluções eficientes.`,
         h1: `Portfólio de Serviços — ${siteName}`,
@@ -140,6 +142,56 @@ export async function GET(request: Request) {
       }
     ];
 
+    const servicePages = services.map(s => ({
+      route: `/servicos/${s.slug}`,
+      label: `Serviço: ${s.title}`,
+      title: s.title,
+      metaDescription: s.metaDescription,
+      h1: s.title,
+      introduction: `<p>${s.heroSubtitle}</p>`,
+      sections: [
+        {
+          title: `Visão Geral — ${s.title}`,
+          paragraphs: s.content.intro || []
+        },
+        ...(s.content.bodyText && s.content.bodyText.length > 0 ? [{
+          title: `Especificações e Aplicação`,
+          paragraphs: s.content.bodyText
+        }] : []),
+        ...(s.content.quote ? [{
+          title: `Destaque Técnico`,
+          paragraphs: [s.content.quote]
+        }] : [])
+      ],
+      benefits: (s.content.advantages || []).map(a => ({ title: a.title, desc: a.description })),
+      faq: s.content.faq || [],
+      status: 'published',
+      updatedAt: new Date().toISOString()
+    }));
+
+    const guidePages = guides.map(g => ({
+      route: `/guia/${g.slug}`,
+      label: `Guia: ${g.question}`,
+      title: `${g.question} | ${siteName}`,
+      metaDescription: g.snippet,
+      h1: g.question,
+      introduction: `<p>${g.snippet}</p>`,
+      sections: [
+        {
+          title: 'Resumo Executivo',
+          paragraphs: g.content.introduction || []
+        },
+        ...(g.content.details || []).map(d => ({
+          title: d.title,
+          paragraphs: [d.text]
+        }))
+      ],
+      benefits: [],
+      faq: [],
+      status: 'published',
+      updatedAt: new Date().toISOString()
+    }));
+
     const defaultAdvantages = [
       { title: 'Velocidade de instalação', desc: 'Estrutura pré-fabricada em fábrica' },
       { title: 'Custo de manutenção reduzido', desc: 'Muito mais baixo que estruturas convencionais' },
@@ -215,7 +267,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       siteName: 'Metalic Estrutura',
-      pages: [...mainPages, ...cityPages]
+      pages: [...mainPages, ...servicePages, ...guidePages, ...cityPages]
     });
   } catch (err: any) {
     return NextResponse.json({ error: err?.message || 'Erro ao carregar páginas.' }, { status: 500 });
