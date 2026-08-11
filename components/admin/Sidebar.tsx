@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Inbox, LogOut, Zap, Settings, Map, Briefcase, FileText, Search, FileCode2 } from 'lucide-react'
+import { LayoutDashboard, Inbox, LogOut, Zap, Settings, Map, Briefcase, FileText, Search, FileCode2, Database } from 'lucide-react'
 import AuthButton from './AuthButton'
 
 const menuItems = [
@@ -15,6 +15,7 @@ const menuItems = [
     { label: 'Páginas SEO', href: '/admin/seo/pages', icon: FileText },
     { label: 'Integridade SEO', href: '/admin/seo/integrity', icon: Search },
     { label: 'Sitemaps', href: '/admin/seo/sitemaps', icon: FileCode2 },
+    { label: 'Backup', href: '/admin/backup', icon: Database },
     { label: 'Configurações', href: '/admin/configuracoes', icon: Settings },
 ]
 
