@@ -13,6 +13,8 @@ export interface CitySEOData {
     isManual?: boolean
     neighborhoods: { slug: string; name: string }[]
     lastUpdated?: string
+    geoCorePublicationId?: string
+    geoCorePublishedAt?: string
 }
 
 export type SeoCitiesStore = Record<string, CitySEOData>

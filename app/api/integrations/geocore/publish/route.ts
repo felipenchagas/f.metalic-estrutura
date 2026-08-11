@@ -8,8 +8,7 @@ function isAuthorized(request: Request) {
 
   const validSecrets = [
     process.env.METALIC_GEOCORE_PUBLISH_SECRET,
-    process.env.GEOCORE_PUBLISH_SECRET,
-    'metalicsecret2026'
+    process.env.GEOCORE_PUBLISH_SECRET
   ].filter(Boolean) as string[];
 
   return validSecrets.some((configured) => {
@@ -26,9 +25,9 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { path, citySlug, publishable } = body;
+    const { path, citySlug, publishable, publicationId } = body;
 
-    if (!citySlug || !publishable) {
+    if (!citySlug || !publishable || !publicationId) {
       return NextResponse.json({ error: 'Pacote de publicação incompleto.' }, { status: 400 });
     }
 
@@ -40,14 +39,17 @@ export async function POST(request: Request) {
       customHeroText: publishable.introduction || '',
       customText1: publishable.city_context || '',
       customText2: publishable.service_connection || '',
-      isManual: true
+      isManual: true,
+      geoCorePublicationId: String(publicationId),
+      geoCorePublishedAt: new Date().toISOString()
     });
 
     return NextResponse.json({
       ok: true,
       published: true,
       path: path || `/pr/${citySlug}`,
-      timestamp: new Date().toISOString()
+      publicationId: String(publicationId),
+      updatedAt: new Date().toISOString()
     });
   } catch (err: any) {
     console.error('Erro na rota de publicação GeoCore (Metalic):', err);
