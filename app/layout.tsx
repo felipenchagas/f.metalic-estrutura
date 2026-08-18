@@ -22,6 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(getGlobalSchemaGraph()) }}
         />
+      </head>
+      <body className={inter.className}>
         {/* Google tag (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=AW-18375153646"
@@ -36,8 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'AW-18375153646');
           `}
         </Script>
-      </head>
-      <body className={inter.className}>
+
         <GeoCoreTracker />
         {children}
       </body>
