@@ -59,6 +59,12 @@ export default function FloatingWhatsApp() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Falar no WhatsApp"
+                        onClick={() => {
+                            // Redireciona a janela atual para a página de conversão /obrigado
+                            setTimeout(() => {
+                                window.location.href = '/obrigado'
+                            }, 300)
+                        }}
                         className="relative w-14 h-14 bg-[#25D366] hover:bg-[#20BD5C] rounded-full flex items-center justify-center shadow-2xl transition-colors duration-200 cursor-pointer"
                     >
                         {/* Pulse rings */}

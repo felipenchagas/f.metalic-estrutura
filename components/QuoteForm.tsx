@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { CheckCircle, Loader2 } from 'lucide-react'
 
@@ -21,6 +22,7 @@ interface QuoteFormProps {
 }
 
 export default function QuoteForm({ onSuccess }: QuoteFormProps) {
+    const router = useRouter()
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>()
 
@@ -31,13 +33,15 @@ export default function QuoteForm({ onSuccess }: QuoteFormProps) {
         formData.set('form_loaded_at', Date.now().toString())
 
         try {
-            await fetch('/api/quote', {
+            const res = await fetch('/api/quote', {
                 method: 'POST',
                 body: formData,
             })
+            if (!res.ok) throw new Error('Falha no envio')
             setStatus('success')
             reset()
-            setTimeout(() => { onSuccess?.(); setStatus('idle') }, 3000)
+            onSuccess?.()
+            router.push('/obrigado')
         } catch {
             setStatus('error')
         }
