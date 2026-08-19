@@ -125,6 +125,7 @@ export async function POST(req: NextRequest) {
       revalidatePath('/noticias');
       revalidatePath(`/noticias/${targetSlug}`);
       revalidatePath('/blog');
+      try { revalidatePath('/sitemap-blog.xml'); revalidatePath('/sitemap.xml'); revalidatePath('/sitemap'); } catch {}
       revalidatePath(`/blog/${targetSlug}`);
       revalidatePath('/');
     } catch {}
