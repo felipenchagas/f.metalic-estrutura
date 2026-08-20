@@ -27,7 +27,7 @@ export async function GET() {
 
   // Blog/News Sitemap
   xml += `  <sitemap>
-    <loc>${baseUrl}/sitemap-noticias.xml</loc>
+    <loc>${baseUrl}/sitemap-blog.xml</loc>
     <lastmod>${currentDate}</lastmod>
   </sitemap>\n`
 
