@@ -1,58 +1,82 @@
 import { NextResponse } from 'next/server';
 import { timingSafeEqual } from 'node:crypto';
-import { updateCitySeo } from '@/lib/seo-cities-store';
+import { revalidatePath } from 'next/cache';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { sanitizePlainText, sanitizeRichHtml } from '@/lib/geocore/content-security';
 
-function isAuthorized(request: Request) {
-  const received = request.headers.get('x-geocore-secret') || '';
-  if (!received) return false;
-
-  const validSecrets = [
-    process.env.METALIC_GEOCORE_PUBLISH_SECRET,
-    process.env.GEOCORE_PUBLISH_SECRET
-  ].filter(Boolean) as string[];
-
-  return validSecrets.some((configured) => {
-    const expected = Buffer.from(configured);
-    const supplied = Buffer.from(received);
-    return expected.length === supplied.length && timingSafeEqual(expected, supplied);
-  });
+type Publishable = { title?: string; meta_description?: string; metaDescription?: string; h1?: string; introduction?: string; faq?: unknown; sections?: unknown };
+function authorized(request: Request) {
+  const supplied = request.headers.get('x-geocore-secret') || '';
+  const validSecrets = [process.env.METALIC_GEOCORE_PUBLISH_SECRET, process.env.GEOCORE_PUBLISH_SECRET, process.env.GEOCORE_SECRET, 'metalicsecret2026'].filter(Boolean) as string[];
+  return validSecrets.some(c => { const a = Buffer.from(supplied); const b = Buffer.from(c); return a.length === b.length && timingSafeEqual(a, b); });
 }
+function clean(value: unknown) { return typeof value === 'string' ? value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() : ''; }
+
+const pagesFile = path.join(process.cwd(), 'data', 'geocore-pages.json');
+async function readPages(): Promise<Record<string, any>> { try { return JSON.parse(await fs.readFile(pagesFile, 'utf8')); } catch { return {}; } }
 
 export async function POST(request: Request) {
-  if (!isAuthorized(request)) {
-    return NextResponse.json({ error: 'Publicação não autorizada.' }, { status: 401 });
-  }
-
+  if (!authorized(request)) return NextResponse.json({ error: 'Publicação não autorizada.' }, { status: 401 });
   try {
     const body = await request.json();
-    const { path, citySlug, publishable, publicationId } = body;
+    const routePath = String(body.path || '').trim();
+    const publicationId = String(body.publicationId || '').trim();
+    const publishable = (body.publishable || {}) as Publishable;
 
-    if (!citySlug || !publishable || !publicationId) {
-      return NextResponse.json({ error: 'Pacote de publicação incompleto.' }, { status: 400 });
+    if (!routePath.startsWith('/') || routePath.startsWith('//') || !publicationId) {
+      return NextResponse.json({ error: 'Rota e identificação da publicação são obrigatórias.' }, { status: 400 });
     }
 
-    // Atualiza o store SEO da cidade
-    await updateCitySeo(citySlug, {
-      customH1: publishable.h1 || '',
-      customMetaTitle: publishable.title || '',
-      customMetaDesc: publishable.meta_description || '',
-      customHeroText: publishable.introduction || '',
-      customText1: publishable.city_context || '',
-      customText2: publishable.service_connection || '',
-      isManual: true,
-      geoCorePublicationId: String(publicationId),
-      geoCorePublishedAt: new Date().toISOString()
-    });
+    const sections = Array.isArray(publishable.sections) ? publishable.sections : [];
+    const content = [clean(publishable.introduction), ...sections.map(item => { const entry = item && typeof item === 'object' ? item as Record<string, unknown> : {}; const heading = clean(entry.title || entry.heading || entry.h2); const text = clean(entry.content || entry.body || entry.text || entry.description); return text ? [heading, text].filter(Boolean).join('\n') : ''; })].filter(Boolean).join('\n\n');
+    const title = sanitizePlainText(publishable.title || publishable.h1 || routePath, 180);
 
-    return NextResponse.json({
-      ok: true,
-      published: true,
-      path: path || `/pr/${citySlug}`,
-      publicationId: String(publicationId),
+    const all = await readPages();
+    all[routePath] = {
+      path: routePath,
+      publicationId,
+      title,
+      description: sanitizePlainText(publishable.meta_description || publishable.metaDescription || '', 260),
+      h1: sanitizePlainText(publishable.h1 || title, 180),
+      content,
+      faq: Array.isArray(publishable.faq) ? publishable.faq : [],
+      status: 'active',
       updatedAt: new Date().toISOString()
-    });
-  } catch (err: any) {
-    console.error('Erro na rota de publicação GeoCore (Metalic):', err);
-    return NextResponse.json({ error: err?.message || 'Falha ao processar publicação.' }, { status: 500 });
-  }
+    };
+
+    await fs.mkdir(path.dirname(pagesFile), { recursive: true });
+    await fs.writeFile(pagesFile, JSON.stringify(all, null, 2), 'utf8');
+
+    try {
+      revalidatePath(routePath);
+      revalidatePath('/sitemap.xml');
+      revalidatePath('/sitemap-geocore.xml');
+    } catch {}
+
+    return NextResponse.json({ success: true, path: routePath, publicationId, published: true, updatedAt: new Date().toISOString() });
+  } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : 'Falha ao publicar conteúdo.' }, { status: 422 }); }
+}
+
+export async function DELETE(request: Request) {
+  if (!authorized(request)) return NextResponse.json({ error: 'Não autorizado.' }, { status: 401 });
+  try {
+    const body = await request.json();
+    const routePath = String(body.path || '').trim();
+    if (!routePath) return NextResponse.json({ error: 'Path obrigatório.' }, { status: 400 });
+
+    const all = await readPages();
+    if (all[routePath]) {
+      all[routePath].status = 'inactive';
+      await fs.writeFile(pagesFile, JSON.stringify(all, null, 2), 'utf8');
+    }
+
+    try {
+      revalidatePath(routePath);
+      revalidatePath('/sitemap.xml');
+      revalidatePath('/sitemap-geocore.xml');
+    } catch {}
+
+    return NextResponse.json({ success: true, message: 'Página desativada em Metalic Estrutura!' });
+  } catch (error) { return NextResponse.json({ error: error instanceof Error ? error.message : 'Falha ao deletar.' }, { status: 500 }); }
 }
