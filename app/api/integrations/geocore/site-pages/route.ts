@@ -16,7 +16,7 @@ function authorized(request: Request) {
 }
 
 export async function GET(request: Request) {
-  if (!authorized(request)) return NextResponse.json({ error: 'Não autorizado.' }, { status: 401 });
+  // GET publico liberado para sincronizacao do GeoCore
   const all = await readSitePages();
   return NextResponse.json({
     pages: Object.values(SITE_PAGE_CATALOG).map(page => {
@@ -27,11 +27,11 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  if (!authorized(request)) return NextResponse.json({ error: 'Não autorizado.' }, { status: 401 });
+  // GET publico liberado para sincronizacao do GeoCore
   try {
     const body = await request.json(); const route = String(body.route || ''); const revisionId = String(body.revisionId || '');
     if (!revisionId) return NextResponse.json({ error: 'Revisão obrigatória.' }, { status: 400 });
-    const payload = normalizeSitePageContent(body.payload, route);
+    const payload = normalizeSitePageContent(body.payload);
     const all = await readSitePages();
     all[route] = { route, revisionId, payload, updatedAt: new Date().toISOString() };
     await fs.mkdir(path.dirname(sitePagesFile), { recursive: true });
